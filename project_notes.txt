@@ -1,0 +1,13 @@
+
+# .gitignore file
+
+# Setup Python Interpreter
+
+# Setup a Fresh Virtual Environment
+
+# Install Django
+# Setup a Django Project
+
+# Setup a superuser using commands
+
+django-admin startproject SCHEMAVIEWSDIJANGO .
