@@ -40,11 +40,11 @@ class PrescriptionAdmin(admin.ModelAdmin):
 admin.site.register(Prescription, PrescriptionAdmin)
 
 class Medicalrecordadmin(admin.ModelAdmin):
-    list_display = ( 'id','patient' , 'Appointment','diagnosis' ,'allergies' ,'medical_history','notes','created_at','updated_at' ,)
+    list_display = ( 'id','patient' , 'appointment','diagnosis' ,'allergies' ,'medical_history','notes','created_at','updated_at' ,)
 admin.site.register(MedicalRecord, Medicalrecordadmin)
 
 class Billadmin(admin.ModelAdmin):
-    list_display = ('doctor_fee','Appointment','lab_total','medicine_total','discount','tax','grand_total','payment_status','payment_date' , 'created_at', 'updated_at',)
+    list_display = ('doctor_fee','appointment','lab_total','medicine_total','discount','tax','grand_total','payment_status','payment_date' , 'created_at', 'updated_at',)
     search_fields = ('lab_total',)
 
 admin.site.register(Bill, Billadmin)

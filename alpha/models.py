@@ -7,10 +7,8 @@ class Doctor(models.Model):
     email = models.EmailField(max_length=255, null=True, blank=True)
     phone = models.CharField(max_length=255)
     consultation_fees = models.DecimalField(max_digits=6, decimal_places=2)
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return f"Dr {self.name}"
 
@@ -38,7 +36,6 @@ class Patient(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return f"Patient {self.name}"
 
@@ -49,9 +46,9 @@ class LabTest(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return f"LabTest {self.Test}"
+
 class Appointment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
@@ -66,10 +63,8 @@ class Appointment(models.Model):
     lab_tests = models.ManyToManyField(LabTest)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-
-def __str__(self):
-    return f"Appointment {self.patient.name} with {self.doctor.name} at {self.date_time}"
+    def __str__(self):
+        return f"{self.id}"
 
 class Medicine(models.Model):
     id= models.AutoField(primary_key=True)
@@ -85,30 +80,28 @@ class Medicine(models.Model):
 class Prescription(models.Model):
     appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE)
     notes = models.TextField(null=True, blank=True)
-    Medicine = models.ManyToManyField(Medicine)
+    medicine = models.ManyToManyField(Medicine)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return f"{self.id}"
 
 class MedicalRecord(models.Model):
     id= models.AutoField(primary_key=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    Appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)
     diagnosis = models.TextField(null=True, blank=True)
     allergies = models.TextField(null=True, blank=True)
     medical_history = models.TextField(null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return f"{self.id}"
 
 class Bill(models.Model):
     doctor_fee= models.DecimalField(max_digits=6, decimal_places=2)
-    Appointment = models.ForeignKey(LabTest, on_delete=models.CASCADE, null=True, blank=True, related_name="lab_tests")
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE, null=True, blank=True)
     lab_test = models.ForeignKey(LabTest, on_delete=models.CASCADE)
     lab_total = models.DecimalField(max_digits=6, decimal_places=2)
     medicine = models.DecimalField(max_digits=6, decimal_places=2)
@@ -121,8 +114,7 @@ class Bill(models.Model):
         ("u", "Unpaid"),
     ]
     payment_status = models.CharField(max_length=6, choices=PAYMENT_STATUS_CHOICES)
-    payment_date = models.DateTimeField(auto_now_add=True)
-
+    payment_date = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
