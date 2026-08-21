@@ -9,7 +9,6 @@ class DoctorAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 admin.site.register(Doctor, DoctorAdmin)
 
-
 # Register Patient Model
 class PatientAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'gender', 'dob', 'email', 'address', 'blood_group', 'created_at', 'updated_at')
@@ -18,15 +17,15 @@ class PatientAdmin(admin.ModelAdmin):
 admin.site.register(Patient, PatientAdmin)
 
 # Register Appointment Model
-class AppointmentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'patient', 'doctor', 'remarks', 'status', 'created_at', 'updated_at')
-admin.site.register(Appointment, AppointmentAdmin)
-
-# Register Appointment Model
 class LabtestAdmin(admin.ModelAdmin):
     list_display = ('Test', 'Price', 'Description', 'created_at', 'updated_at',)
     search_fields = ('Test',)
 admin.site.register(LabTest, LabtestAdmin)
+
+# Register Appointment Model
+class AppointmentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'patient', 'doctor', 'remarks', 'status', 'created_at', 'updated_at')
+admin.site.register(Appointment, AppointmentAdmin)
 
 class Medicineadmin(admin.ModelAdmin):
     list_display = ('id','medicine_name','strength','price','stock','created_at', 'updated_at',)
@@ -36,7 +35,6 @@ admin.site.register(Medicine, Medicineadmin)
 class PrescriptionAdmin(admin.ModelAdmin):
     list_display = ('id', 'appointment', 'notes', 'created_at', 'updated_at',)
     search_fields = ('notes',)
-
 admin.site.register(Prescription, PrescriptionAdmin)
 
 class Medicalrecordadmin(admin.ModelAdmin):
@@ -46,6 +44,5 @@ admin.site.register(MedicalRecord, Medicalrecordadmin)
 class Billadmin(admin.ModelAdmin):
     list_display = ('doctor_fee','appointment','lab_total','medicine_total','discount','tax','grand_total','payment_status','payment_date' , 'created_at', 'updated_at',)
     search_fields = ('lab_total',)
-
 admin.site.register(Bill, Billadmin)
 

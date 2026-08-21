@@ -63,8 +63,9 @@ class Appointment(models.Model):
     lab_tests = models.ManyToManyField(LabTest)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
-        return f"{self.id}"
+        return f"Status {self.status}"
 
 class Medicine(models.Model):
     id= models.AutoField(primary_key=True)
@@ -75,7 +76,7 @@ class Medicine(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
-        return f"{self.id}"
+        return f"Medicine {self.medicine_name}"
 
 class Prescription(models.Model):
     appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE)
